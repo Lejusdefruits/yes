@@ -15,6 +15,10 @@
 [ext_resource type="Script" uid="uid://bgfm6yk1mjqge" path="res://animated_sprite_2d.gd" id="7_ba6m2"]
 [ext_resource type="Texture2D" uid="uid://tp5pyakvsptv" path="res://tilesets/map_2/Small Lightning (32x32).png" id="9_0bavm"]
 [ext_resource type="Shader" uid="uid://dujoe2brnln4h" path="res://node_2d_2.gdshader" id="11_jbtw6"]
+[ext_resource type="Script" uid="uid://cjkb0mpvynby8" path="res://camera_2d.gd" id="14_66w4i"]
+[ext_resource type="Texture2D" uid="uid://g4xxdvmbyty2" path="res://particule.png" id="15_d0ssp"]
+[ext_resource type="PackedScene" uid="uid://qb5uyjbgbplt" path="res://ennemi.tscn" id="16_bf8d7"]
+[ext_resource type="PackedScene" uid="uid://b4sfqqka61fam" path="res://ennemi_archer.tscn" id="19_1bm6i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oype5"]
 texture = ExtResource("1_66fdr")
@@ -1857,6 +1861,18 @@ tracks/1/keys = {
 "update": 1,
 "values": [Vector2i(0, 8)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Pivot/Hitbox_Epee/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_ebxd8"]
 resource_name = "Roll"
@@ -1877,7 +1893,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_2u7jv"]
 resource_name = "Roll_Attack"
 length = 0.56666666
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1928,7 +1943,6 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_kq1c5"]
 resource_name = "Slam_Attack"
 length = 0.16666667
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1956,6 +1970,18 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [80, 81, 82, 83, 84]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Hitbox_Epee/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.0467986, 0.07188434),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
 }
 
 [sub_resource type="Animation" id="Animation_cnnru"]
@@ -2134,9 +2160,52 @@ fill = 1
 fill_from = Vector2(0.4871795, 0.52136755)
 fill_to = Vector2(0.14957266, 0.85897434)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf8d7"]
+size = Vector2(20.392365, 14)
+
+[sub_resource type="Gradient" id="Gradient_bf8d7"]
+colors = PackedColorArray(0.18431373, 0.10980392, 0.039215688, 1, 0.18431373, 0.10980392, 0.039215688, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1bm6i"]
+gradient = SubResource("Gradient_bf8d7")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_65oh8"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(5, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+gravity = Vector3(0, -30, 0)
+color_ramp = SubResource("GradientTexture1D_1bm6i")
+
+[sub_resource type="Gradient" id="Gradient_66w4i"]
+offsets = PackedFloat32Array(0, 0.52205884, 1)
+colors = PackedColorArray(0, 0, 0, 0.03529412, 1.8247963, 1.8108214, 1.6361353, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bf8d7"]
+gradient = SubResource("Gradient_66w4i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1bm6i"]
+lifetime_randomness = 1.0
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(600, 300, 1)
+initial_velocity_max = 16.13
+gravity = Vector3(0, -10, 0)
+color_ramp = SubResource("GradientTexture1D_bf8d7")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ior6w"]
 shader = ExtResource("11_jbtw6")
 shader_parameter/water_top = 0.6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66w4i"]
+size = Vector2(40.00704, 40.30687)
+
+[sub_resource type="Environment" id="Environment_d0ssp"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.0
+glow_bloom = 0.1
+glow_hdr_threshold = 0.8
 
 [node name="Node2D" type="Node2D" unique_id=402999863]
 
@@ -2145,7 +2214,7 @@ z_index = 1
 tile_set = SubResource("TileSet_j6028")
 format = 2
 layer_0/name = "GROUND"
-layer_0/tile_data = PackedInt32Array(-4521916, 0, 7, -4456380, 0, 8, -4390844, 0, 9, -4521915, 65536, 7, -4456379, 65536, 8, -4390843, 65536, 9, -4521914, 131072, 7, -4456378, 131072, 8, -4390842, 131072, 9, -4521913, 196608, 7, -4456377, 196608, 8, -4390841, 196608, 9, -4521912, 720896, 23, -4456376, 262144, 8, -4390840, 262144, 9, -4521911, 327680, 7, -4456375, 327680, 8, -4390839, 327680, 9, -4521910, 393216, 7, -4456374, 393216, 8, -4390838, 393216, 9, -4521909, 262144, 7, -4456373, 262144, 8, -4390837, 262144, 9, -4521908, 327680, 7, -4456372, 327680, 8, -4390836, 327680, 9, -4521907, 393216, 7, -4456371, 393216, 8, -4390835, 393216, 9, -4521906, 262144, 7, -4456370, 262144, 8, -4390834, 262144, 9, -4521905, 327680, 7, -4456369, 327680, 8, -4390833, 327680, 9, -4521904, 393216, 7, -4456368, 393216, 8, -4390832, 393216, 9, -4521903, 262144, 7, -4456367, 262144, 8, -4390831, 262144, 9, -4521902, 327680, 7, -4456366, 327680, 8, -4390830, 327680, 9, -4521901, 393216, 7, -4456365, 393216, 8, -4390829, 393216, 9, -4521900, 262144, 7, -4456364, 262144, 8, -4390828, 262144, 9, -4521899, 327680, 7, -4456363, 327680, 8, -4390827, 327680, 9, -4521898, 393216, 7, -4456362, 393216, 8, -4390826, 393216, 9, -4521897, 262144, 7, -4456361, 262144, 8, -4390825, 262144, 9, -4521896, 327680, 7, -4456360, 327680, 8, -4390824, 327680, 9, -4784056, 720896, 19, -4718520, 720896, 20, -4652984, 720896, 21, -4587448, 720896, 22, -4784055, 786432, 19, -4718519, 786432, 20, -4652983, 786432, 21, -4587447, 786432, 22, -4784054, 851968, 19, -4718518, 851968, 20, -4652982, 851968, 21, -4521895, 131072, 7, -4456359, 131072, 8, -4390823, 131072, 9, -4521894, 196608, 7, -4456358, 196608, 8, -4390822, 196608, 9, -4521893, 262144, 7, -4456357, 262144, 8, -4390821, 262144, 9, -4521892, 327680, 7, -4456356, 327680, 8, -4390820, 327680, 9, -4521891, 393216, 7, -4456355, 393216, 8, -4390819, 393216, 9, -4521890, 458752, 7, -4456354, 458752, 8, -4390818, 458752, 9, -4521889, 524288, 7, -4456353, 524288, 8, -4390817, 524288, 9, -4521888, 131072, 7, -4456352, 131072, 8, -4390816, 131072, 9, -4521887, 196608, 7, -4456351, 196608, 8, -4390815, 196608, 9, -4521886, 262144, 7, -4456350, 262144, 8, -4390814, 262144, 9, -4521885, 327680, 7, -4456349, 327680, 8, -4390813, 327680, 9, -4521884, 393216, 7, -4456348, 393216, 8, -4390812, 393216, 9, -4521883, 458752, 7, -4456347, 458752, 8, -4390811, 458752, 9, -4521882, 524288, 7, -4456346, 524288, 8, -4390810, 524288, 9, -4521881, 131072, 7, -4456345, 131072, 8, -4390809, 131072, 9, -4521880, 196608, 7, -4456344, 196608, 8, -4390808, 196608, 9, -4521879, 262144, 7, -4456343, 262144, 8, -4390807, 262144, 9, -4521878, 327680, 7, -4456342, 327680, 8, -4390806, 327680, 9, -4521877, 393216, 7, -4456341, 393216, 8, -4390805, 393216, 9, -4521876, 458752, 7, -4456340, 458752, 8, -4390804, 458752, 9, -4521875, 524288, 7, -4456339, 524288, 8, -4390803, 524288, 9, -4521874, 131072, 7, -4456338, 131072, 8, -4390802, 131072, 9, -4521873, 196608, 7, -4456337, 196608, 8, -4390801, 196608, 9, -4521872, 262144, 7, -4456336, 262144, 8, -4390800, 262144, 9, -4521871, 327680, 7, -4456335, 327680, 8, -4390799, 327680, 9, -4521870, 393216, 7, -4456334, 393216, 8, -4390798, 393216, 9, -4521869, 458752, 7, -4456333, 458752, 8, -4390797, 458752, 9, -4521868, 524288, 7, -4456332, 524288, 8, -4390796, 524288, 9, -4521867, 131072, 7, -4456331, 131072, 8, -4390795, 131072, 9, -4521866, 196608, 7, -4456330, 196608, 8, -4390794, 196608, 9, -4521865, 262144, 7, -4456329, 262144, 8, -4390793, 262144, 9, -4521864, 327680, 7, -4456328, 327680, 8, -4390792, 327680, 9, -4521863, 327680, 268435458, -4456327, 393216, 8, -4390791, 393216, 9, -4521862, 262144, 268435458, -4456326, 458752, 8, -4390790, 458752, 9, -4521861, 524288, 7, -4456325, 524288, 8, -4390789, 524288, 9, -4521860, 589824, 7, -4456324, 589824, 8, -4390788, 589824, 9, -4521859, 655360, 7, -4456323, 655360, 8, -4390787, 655360, 9, -4652934, 262144, 268435456, -4652935, 327680, 268435456, -4587398, 262144, 268435457, -4587399, 327680, 268435457)
+layer_0/tile_data = PackedInt32Array(-4521916, 0, 7, -4456380, 0, 8, -4390844, 0, 9, -4521915, 65536, 7, -4456379, 65536, 8, -4390843, 65536, 9, -4521914, 131072, 7, -4456378, 131072, 8, -4390842, 131072, 9, -4521913, 196608, 7, -4456377, 196608, 8, -4390841, 196608, 9, -4521912, 720896, 23, -4456376, 262144, 8, -4390840, 262144, 9, -4521911, 327680, 7, -4456375, 327680, 8, -4390839, 327680, 9, -4521910, 393216, 7, -4456374, 393216, 8, -4390838, 393216, 9, -4521909, 262144, 7, -4456373, 262144, 8, -4390837, 262144, 9, -4521908, 327680, 7, -4456372, 327680, 8, -4390836, 327680, 9, -4521907, 393216, 7, -4456371, 393216, 8, -4390835, 393216, 9, -4521906, 262144, 7, -4456370, 262144, 8, -4390834, 262144, 9, -4521905, 327680, 7, -4456369, 327680, 8, -4390833, 327680, 9, -4521904, 393216, 7, -4456368, 393216, 8, -4390832, 393216, 9, -4521903, 262144, 7, -4456367, 262144, 8, -4390831, 262144, 9, -4521902, 327680, 7, -4456366, 327680, 8, -4390830, 327680, 9, -4521901, 393216, 7, -4456365, 393216, 8, -4390829, 393216, 9, -4521900, 262144, 7, -4456364, 262144, 8, -4390828, 262144, 9, -4521899, 327680, 7, -4456363, 327680, 8, -4390827, 327680, 9, -4521898, 393216, 7, -4456362, 393216, 8, -4390826, 393216, 9, -4521897, 262144, 7, -4456361, 262144, 8, -4390825, 262144, 9, -4521896, 327680, 7, -4456360, 327680, 8, -4390824, 327680, 9, -4784056, 720896, 19, -4718520, 720896, 20, -4652984, 720896, 21, -4587448, 720896, 22, -4784055, 786432, 19, -4718519, 786432, 20, -4652983, 786432, 21, -4587447, 786432, 22, -4784054, 851968, 19, -4718518, 851968, 20, -4652982, 851968, 21, -4521895, 131072, 7, -4456359, 131072, 8, -4390823, 131072, 9, -4521894, 196608, 7, -4456358, 196608, 8, -4390822, 196608, 9, -4521893, 262144, 7, -4456357, 262144, 8, -4390821, 262144, 9, -4521892, 327680, 7, -4456356, 327680, 8, -4390820, 327680, 9, -4521891, 393216, 7, -4456355, 393216, 8, -4390819, 393216, 9, -4521890, 458752, 7, -4456354, 458752, 8, -4390818, 458752, 9, -4521889, 524288, 7, -4456353, 524288, 8, -4390817, 524288, 9, -4521888, 131072, 7, -4456352, 131072, 8, -4390816, 131072, 9, -4521887, 196608, 7, -4456351, 196608, 8, -4390815, 196608, 9, -4521886, 262144, 7, -4456350, 262144, 8, -4390814, 262144, 9, -4521885, 327680, 7, -4456349, 327680, 8, -4390813, 327680, 9, -4521884, 393216, 7, -4456348, 393216, 8, -4390812, 393216, 9, -4521883, 458752, 7, -4456347, 458752, 8, -4390811, 458752, 9, -4521882, 524288, 7, -4456346, 524288, 8, -4390810, 524288, 9, -4521881, 131072, 7, -4456345, 131072, 8, -4390809, 131072, 9, -4521880, 196608, 7, -4456344, 196608, 8, -4390808, 196608, 9, -4521879, 262144, 7, -4456343, 262144, 8, -4390807, 262144, 9, -4521878, 327680, 7, -4456342, 327680, 8, -4390806, 327680, 9, -4521877, 393216, 7, -4456341, 393216, 8, -4390805, 393216, 9, -4521876, 458752, 7, -4456340, 458752, 8, -4390804, 458752, 9, -4521875, 524288, 7, -4456339, 524288, 8, -4390803, 524288, 9, -4521874, 131072, 7, -4456338, 131072, 8, -4390802, 131072, 9, -4521873, 196608, 7, -4456337, 196608, 8, -4390801, 196608, 9, -4521872, 262144, 7, -4456336, 262144, 8, -4390800, 262144, 9, -4521871, 327680, 7, -4456335, 327680, 8, -4390799, 327680, 9, -4521870, 393216, 7, -4456334, 393216, 8, -4390798, 393216, 9, -4521869, 458752, 7, -4456333, 458752, 8, -4390797, 458752, 9, -4521868, 524288, 7, -4456332, 524288, 8, -4390796, 524288, 9, -4521867, 131072, 7, -4456331, 131072, 8, -4390795, 131072, 9, -4521866, 196608, 7, -4456330, 196608, 8, -4390794, 196608, 9, -4521865, 262144, 7, -4456329, 262144, 8, -4390793, 262144, 9, -4521864, 327680, 7, -4456328, 327680, 8, -4390792, 327680, 9, -4456327, 393216, 8, -4390791, 393216, 9, -4456326, 458752, 8, -4390790, 458752, 9, -4521861, 524288, 7, -4456325, 524288, 8, -4390789, 524288, 9, -4521860, 589824, 7, -4456324, 589824, 8, -4390788, 589824, 9, -4521859, 655360, 7, -4456323, 655360, 8, -4390787, 655360, 9, -4521863, 458752, 7, -4521862, 524288, 7)
 layer_1/name = "Deco2"
 layer_1/tile_data = PackedInt32Array(-4521899, 327680, 26, -4521898, 393216, 26, -4521897, 458752, 26, -4587451, 0, 18, -4521915, 0, 19, -4521914, 65536, 19, -4521913, 131072, 19, -4587448, 196608, 18, -4521912, 196608, 19, -4521911, 262144, 19, -4521910, 327680, 19)
 layer_2/name = "Deco"
@@ -2221,7 +2290,7 @@ position = Vector2(365, 133)
 texture = ExtResource("5_ba6m2")
 
 [node name="Player" type="CharacterBody2D" parent="." unique_id=1193401288]
-position = Vector2(1307, -1175)
+position = Vector2(1306, -1105)
 script = ExtResource("1_ahet8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player" unique_id=1894857873]
@@ -2239,21 +2308,14 @@ vframes = 14
 libraries/ = SubResource("AnimationLibrary_66gcf")
 speed_scale = 0.55
 
-[node name="Camera2D" type="Camera2D" parent="Player" unique_id=1538794609]
-position = Vector2(-1, 0)
-zoom = Vector2(2, 2)
-limit_top = -1255
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player" unique_id=1694545660]
 libraries/ = SubResource("AnimationLibrary_g81fj")
 speed_scale = 0.4
 
 [node name="PointLight2D17" type="PointLight2D" parent="Player" unique_id=1121968710]
 position = Vector2(3, 4)
-color = Color(1, 1, 0.28627452, 0.96862745)
-energy = 0.8
+color = Color(1.8247963, 1.8247963, 0.55308205, 1)
+energy = 0.25
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.94509804)
 shadow_filter = 2
@@ -2269,23 +2331,69 @@ hframes = 10
 vframes = 27
 frame = 80
 
+[node name="Hitbox_Epee" type="Area2D" parent="Player/Pivot" unique_id=1384922160]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Pivot/Hitbox_Epee" unique_id=783333071]
+position = Vector2(34.36499, 5)
+scale = Vector2(2.88, 1.52)
+shape = SubResource("RectangleShape2D_bf8d7")
+disabled = true
+
+[node name="Particules_Pas" type="GPUParticles2D" parent="Player" unique_id=828940492]
+position = Vector2(0, 15)
+amount = 10
+texture = ExtResource("15_d0ssp")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_65oh8")
+
+[node name="Ennemi" parent="." unique_id=549298160 instance=ExtResource("16_bf8d7")]
+position = Vector2(1732, -1107)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1538794609 node_paths=PackedStringArray("joueur")]
+position = Vector2(0, -1100)
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+script = ExtResource("14_66w4i")
+joueur = NodePath("../Player")
+
 [node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1079474927]
 color = Color(0.35532048, 0.4700799, 0.49511647, 1)
 
 [node name="PointLight2D17" type="PointLight2D" parent="." unique_id=283825474]
-position = Vector2(1180, -1149)
-color = Color(1, 1, 0.28627452, 0.96862745)
-energy = 1.95
+position = Vector2(1225, -1147)
+color = Color(1.8247963, 1.8247963, 0.55308205, 1)
 shadow_enabled = true
 shadow_color = Color(0, 0, 0, 0.94509804)
 shadow_filter = 2
 texture = SubResource("GradientTexture2D_8ba1m")
 
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=872804199]
+position = Vector2(1513, -1153)
+amount = 200
+texture = ExtResource("15_d0ssp")
+lifetime = 10.0
+process_material = SubResource("ParticleProcessMaterial_1bm6i")
+
 [node name="ColorRect" type="ColorRect" parent="." unique_id=981293675]
 z_index = 1
 material = SubResource("ShaderMaterial_ior6w")
-offset_left = 563.0
-offset_top = -1075.0
-offset_right = 603.0
-offset_bottom = -1035.0
-scale = Vector2(59.985924, 6.1042275)
+offset_left = 110.0
+offset_top = -1072.0
+offset_right = 150.0
+offset_bottom = -1032.0
+scale = Vector2(81.57279, 5.1466637)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ColorRect" unique_id=1881221039]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/StaticBody2D" unique_id=90043143]
+position = Vector2(20.005863, 20.310318)
+shape = SubResource("RectangleShape2D_66w4i")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2006284827]
+environment = SubResource("Environment_d0ssp")
+
+[node name="Ennemi_Archer" parent="." unique_id=1911950199 instance=ExtResource("19_1bm6i")]
+position = Vector2(1670, -1102)
+distance_attaque = 500.0
+
+[connection signal="body_entered" from="Player/Pivot/Hitbox_Epee" to="Player" method="_on_hitbox_epee_body_entered"]

@@ -1,0 +1,305 @@
+[gd_scene format=3 uid="uid://b4sfqqka61fam"]
+
+[ext_resource type="Script" uid="uid://p85nf55xdhxw" path="res://ennemi.gd" id="1_25un1"]
+[ext_resource type="Texture2D" uid="uid://dv58eatqxgu0y" path="res://enemies/Archer.png" id="2_25un1"]
+[ext_resource type="Texture2D" uid="uid://c6q8r18amncc2" path="res://enemies/special attack.png" id="3_2bfa2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5npyw"]
+
+[sub_resource type="Animation" id="Animation_qswgi"]
+resource_name = "Attack"
+length = 0.73333335
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5, 0.53333336, 0.5666667, 0.6, 0.6333334, 0.6666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [3, 9, 15, 21, 27, 33, 39, 45, 51, 57, 63, 69, 75, 81, 87, 93, 99, 105, 111, 117, 153]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Attack/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.6333333, 0.7),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flash/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.60926986, 0.63378775, 0.65707976),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0.73333335), Color(1, 1, 1, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Rayon/Sprite_Rayon:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5, 0.53333336, 0.5666667, 0.6, 0.6333334, 0.6666667, 0.70000005, 0.72650075),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Rayon/Sprite_Rayon2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5, 0.53333336, 0.5666667, 0.6, 0.6333334, 0.6666667, 0.70000005, 0.72650075),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Rayon/Sprite_Rayon3:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5, 0.53333336, 0.5666667, 0.6, 0.6333334, 0.6666667, 0.70000005, 0.72650075),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 0]
+}
+
+[sub_resource type="Animation" id="Animation_527yo"]
+resource_name = "Die"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [5, 11, 17, 23, 29, 35]
+}
+
+[sub_resource type="Animation" id="Animation_8k4bw"]
+resource_name = "Idle"
+length = 0.6666667
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002, 0.23333335, 0.26666668, 0.3, 0.33333334, 0.36666667, 0.40000004, 0.43333337, 0.4666667, 0.5, 0.53333336),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78, 84, 90, 114]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Attack/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25621065, 0.36949074),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_w3ujf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pivot/Attack/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Flash/ColorRect:color")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0.73333335)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Pivot/Rayon/Sprite_Rayon:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Pivot/Rayon/Sprite_Rayon2:frame")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Pivot/Rayon/Sprite_Rayon3:frame")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_dttyp"]
+resource_name = "Walk"
+length = 0.23333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.033333335, 0.06666667, 0.10000001, 0.13333334, 0.16666667, 0.20000002),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 7, 13, 25, 31, 37, 43]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bsxdi"]
+_data = {
+&"Attack": SubResource("Animation_qswgi"),
+&"Die": SubResource("Animation_527yo"),
+&"Idle": SubResource("Animation_8k4bw"),
+&"RESET": SubResource("Animation_w3ujf"),
+&"Walk": SubResource("Animation_dttyp")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qswgi"]
+radius = 13.942358
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_527yo"]
+size = Vector2(268.78857, 26)
+
+[node name="Ennemi_Archer" type="CharacterBody2D" unique_id=549298160]
+script = ExtResource("1_25un1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=709978895]
+position = Vector2(0, 10)
+scale = Vector2(0.6399991, 0.5600003)
+shape = SubResource("CircleShape2D_5npyw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1363350529]
+libraries/ = SubResource("AnimationLibrary_bsxdi")
+speed_scale = 0.4
+
+[node name="Pivot" type="Node2D" parent="." unique_id=188497811]
+
+[node name="Detecteur_Sol" type="RayCast2D" parent="Pivot" unique_id=816507397]
+position = Vector2(0, -7)
+target_position = Vector2(35, 84)
+
+[node name="Vision" type="Area2D" parent="Pivot" unique_id=558362674]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Vision" unique_id=1038581106]
+position = Vector2(40, 0)
+scale = Vector2(35.38632, -3.1423297)
+shape = SubResource("CircleShape2D_qswgi")
+
+[node name="Attack" type="Area2D" parent="Pivot" unique_id=248084301]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pivot/Attack" unique_id=678530940]
+position = Vector2(234, 1)
+scale = Vector2(2.046218, 1)
+shape = SubResource("RectangleShape2D_527yo")
+disabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot" unique_id=1450369515]
+texture = ExtResource("2_25un1")
+offset = Vector2(9, 0)
+hframes = 6
+vframes = 26
+
+[node name="Rayon" type="Node2D" parent="Pivot" unique_id=2112561923]
+
+[node name="Sprite_Rayon" type="Sprite2D" parent="Pivot/Rayon" unique_id=1494829926]
+texture = ExtResource("3_2bfa2")
+offset = Vector2(163, 0)
+vframes = 26
+
+[node name="Sprite_Rayon2" type="Sprite2D" parent="Pivot/Rayon" unique_id=1203923595]
+texture = ExtResource("3_2bfa2")
+offset = Vector2(298, 0)
+vframes = 26
+
+[node name="Sprite_Rayon3" type="Sprite2D" parent="Pivot/Rayon" unique_id=1114275214]
+texture = ExtResource("3_2bfa2")
+offset = Vector2(433, 0)
+vframes = 26
+
+[node name="Flash" type="CanvasLayer" parent="." unique_id=1212465790]
+
+[node name="ColorRect" type="ColorRect" parent="Flash" unique_id=291355656]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.73333335)
+
+[connection signal="body_entered" from="Pivot/Vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="Pivot/Vision" to="." method="_on_vision_body_exited"]
+[connection signal="body_entered" from="Pivot/Attack" to="." method="_on_attack_body_entered"]
